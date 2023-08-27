@@ -1,0 +1,3 @@
+SwiftHttp is a very small package based on protocols that allows you to easily define an API to a website and get data from that site in a swift data format.
+
+IN order to define the API first define an HttpUrlRequestor. This struct can define a set of defaults to obe used for all calls in this API. Ie you can set the hostname because this likely will not change. Second define more than one HttpTasks. A struct conforming to HttpTask will be able to return one data format back. Each HttpTask has an associatedtype T that it will return and an HttpUrlRequestor that will define basics. This task will have to define other parameters specific to thisi task. It can also take init parameters just like any other struct.
