@@ -6,7 +6,7 @@ import PackageDescription
 let package = Package(
 	name: "SwiftHttp",
 	platforms: [
-		.macOS(.v10_18),
+		.macOS(.v12),
 		.iOS(.v15)
 	],
 	products: [
