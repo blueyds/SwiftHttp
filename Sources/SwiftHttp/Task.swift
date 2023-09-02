@@ -6,7 +6,7 @@ public protocol HttpTask{
 	var method: HttpMethod { get }
 	var headers: [(name: String, value: String)] { get }
 	var path: String { get }
-	var queries: [(name: String, value: String)]
+	var queries: [(name: String, value: String)] { get }
 	
 }
 
