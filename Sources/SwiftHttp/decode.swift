@@ -1,6 +1,6 @@
 import Foundation
 
-public func decode<T: Decodable>(
+internal func decode<T: Decodable>(
 	from data: Data,
 	dateDecodingStrategy: JSONDecoder.DateDecodingStrategy = .deferredToDate,
 	keyDecodingStrategy : JSONDecoder.KeyDecodingStrategy = .useDefaultKeys
