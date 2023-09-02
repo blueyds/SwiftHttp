@@ -12,7 +12,7 @@ public protocol HttpEnvironment{
 
 extension HttpEnvironment {
 	public func urlRequest(from task: any HttpTask) -> URLRequest{
-		var urlParts = URL()
+		var urlParts = URLComponents()
 		urlParts.scheme = "https"
 		urlParts.host = hostName
 		urlParts.path = pathPrefix + task.path	
