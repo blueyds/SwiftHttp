@@ -4,9 +4,9 @@ public protocol HttpTask{
 	associatedtype T:Codable
 	var defaults: HttpEnvironment { get }
 	var method: HttpMethod { get }
-	var headers: [(name: String, value: String)] { get }
+	var headers: [(name: String, value: String)] { get set }
 	var path: String { get }
-	var queries: [(name: String, value: String)] { get }
+	var queries: [(name: String, value: String)] { get set }
 	
 }
 
@@ -26,4 +26,20 @@ extension HttpTask{
             fatalError("HTtpTask threw")
         }
     }
+	 
+	 /// helper functions
+	 public mutating func addQuery(name: String, valueAsInt: Int) {
+		 if let v = String(value){
+			 query = (name: name, value: v)
+			 queries.append(query)
+		 }
+	 }
+	 public mutating func addQuery(name: String, value: String) {
+		query = (name: name, value: v)
+		queries.append(query)
+	 }
+	 public mutating func addHeader(name: String, value: String){
+		 header = (name: name, value: value)
+		 headers.append(header)
+	 }
 }
