@@ -12,7 +12,7 @@ extension URLComponents{
 		if queryItems == nil { queryItems = [] }
 		self.queryItems!.append(URLQueryItem(name: name, value: value))
 	}
-	internal mutating func addQueries(_ queries: [(name: name, value: value)]){
+	internal mutating func addQueries(_ queries: [(name: String, value: String)]){
 		for query in queries {
 			self.addQueryItem(name: query.name, value: query.value)
 		}
