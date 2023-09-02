@@ -29,10 +29,9 @@ extension HttpTask{
 	 
 	 /// helper functions
 	 public mutating func addQuery(name: String, valueAsInt: Int) {
-		 if let v = String(valueAsInt){
-			 let query = (name: name, value: v)
-			 queries.append(query)
-		 }
+		 let v = String(valueAsInt)
+		 let query = (name: name, value: v)
+		 queries.append(query)
 	 }
 	 public mutating func addQuery(name: String, value: String) {
 		 let query = (name: name, value: value)
