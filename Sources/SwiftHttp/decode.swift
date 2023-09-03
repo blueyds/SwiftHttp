@@ -26,7 +26,7 @@ internal func decode<T: Decodable>(
 		fatalError("Failed to decode: \(error.localizedDescription)")
 	}
 }
-fileinternal func printKeyPath(_ keys: [CodingKey]){
+fileprivate func printKeyPath(_ keys: [CodingKey]){
 	print("*****KEY PATH to FAILURE******")
 	for key in keys {
 		print(key.stringValue)
