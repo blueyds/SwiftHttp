@@ -28,8 +28,9 @@ internal func decode<T: Decodable>(
 }
 fileprivate func printKeyPath(_ keys: [CodingKey]){
 	print("*****KEY PATH to FAILURE******")
+	print("keys total \(keys.count)")
 	for key in keys {
-		print(key.stringValue)
+		print(key.debugDescription)
 	}
 }
 
