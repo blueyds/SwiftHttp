@@ -15,14 +15,18 @@ internal func decode<T: Decodable>(
 		printKeyPath(context.codingPath)
 		fatalError("Failed to decode due to missing key '\(key.stringValue)' not found \(context.debugDescription)")
 	} catch DecodingError.typeMismatch(_, let context){
+		printData(data)
 		printKeyPath(context.codingPath)
 		fatalError("Failed to decode due to type mismatch - \(context.debugDescription)")
 	} catch DecodingError.valueNotFound(let type, let context){
+		printData(data)
 		printKeyPath(context.codingPath)
 		fatalError("Failed to decode due to missing \(type) value - \(context.debugDescription)")
 	} catch DecodingError.dataCorrupted(_){
+		printData(data)
 		fatalError("Failed to decode because it appears to be invalid JSON")
 	} catch {
+		print(data)
 		fatalError("Failed to decode: \(error.localizedDescription)")
 	}
 }
@@ -34,3 +38,10 @@ fileprivate func printKeyPath(_ keys: [CodingKey]){
 	}
 }
 
+fileprivate func printData(_ data: Data){
+	print("***** Data attempting to decode *****")
+	var str = String(decoding: data, as: UTF8.self)
+	if str.length > 0 {
+		print(str)
+	}
+}
