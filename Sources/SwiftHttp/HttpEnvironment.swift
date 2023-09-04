@@ -26,6 +26,7 @@ extension HttpEnvironment {
 			request.addHeaders(task.headers)
 			
 			print(request.url!.absoluteString)
+			print(request.allHTTPHeaderFields)
 			return request    
 		} else {
 				fatalError("urlParts did not unwrap \(urlParts)")
