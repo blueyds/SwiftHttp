@@ -41,7 +41,7 @@ fileprivate func printKeyPath(_ keys: [CodingKey]){
 fileprivate func printData(_ data: Data){
 	print("***** Data attempting to decode *****")
 	var str = String(decoding: data, as: UTF8.self)
-	if str.length > 0 {
+	if str.len > 0 {
 		print(str)
 	}
 }
