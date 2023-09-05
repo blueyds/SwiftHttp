@@ -3,11 +3,11 @@ import Foundation
 public protocol HttpTask{
 	associatedtype T:Codable
 	var defaults: HttpEnvironment { get }
-	var method: HttpMethod { get }
+	var method: HttpMethod { get set }
 	var headers: [(name: String, value: String)] { get set }
 	var path: String { get }
 	var queries: [(name: String, value: String)] { get set }
-	
+	var body: Data { get set }
 }
 
 extension HttpTask{
@@ -40,5 +40,14 @@ extension HttpTask{
 	 public mutating func addHeader(name: String, value: String){
 		 let header = (name: name, value: value)
 		 headers.append(header)
+	 }
+	 
+	 public mutating func request(json body: Codable){
+	 	let encoder = JSONEncoder()
+	 	if let data = try encoder.encode(body){
+	 		addHeader(name: "Content-Type", value: "application/json")
+	 		method = .post
+	 		body = data
+	 	}
 	 }
 }
