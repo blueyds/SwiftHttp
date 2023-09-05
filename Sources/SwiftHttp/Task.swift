@@ -7,7 +7,7 @@ public protocol HttpTask{
 	var headers: [(name: String, value: String)] { get set }
 	var path: String { get }
 	var queries: [(name: String, value: String)] { get set }
-	var body: Data { get set }
+	var body: Data? { get set }
 }
 
 extension HttpTask{
@@ -42,9 +42,9 @@ extension HttpTask{
 		 headers.append(header)
 	 }
 	 
-	 public mutating func request(json body: Codable){
+	 public mutating func request(json: Codable){
 	 	let encoder = JSONEncoder()
-	 	if let data = try encoder.encode(body){
+	 	if let data = try? encoder.encode(json){
 	 		addHeader(name: "Content-Type", value: "application/json")
 	 		method = .post
 	 		body = data
