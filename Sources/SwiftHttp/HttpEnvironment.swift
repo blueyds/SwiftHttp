@@ -24,7 +24,7 @@ extension HttpEnvironment {
 			request.httpMethod = task.method.rawValue
 			request.addHeaders(headers)
 			request.addHeaders(task.headers)
-			request.body = task.body
+			request.httpBody = task.body
 			print(request.url!.absoluteString)
 			print(request.allHTTPHeaderFields)
 			return request    
