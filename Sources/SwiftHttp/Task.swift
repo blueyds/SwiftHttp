@@ -1,14 +1,24 @@
 import Foundation
-
+public typealias nameValueTuple = (name: String, value: String)
 public struct HTTPTask{
 	var environment: HttpEnvironment
 	var method: HttpMethod = .get
 	var path: String
-	var headers: [(name: String, value: String)] = []
-	var queries: [(name: String, value: String)] = []
+	var headers: [nameValueTuple] = []
+	var queries: [nameValueTuple] = []
 	var body: Data? = nil
-	
-
+	public init(environment: HttpEnvironment, method: HttpMethod, path: String, headers: [nameValueTuple], queries: [nameValueTuple], body: Data?){
+		self.environment = environment
+		self.method = method
+		self.path = path
+		self.headers = headers
+		self.queries = queries
+		self.body = body
+	}
+	public init(environment: HttpEnvironment, path: String){
+		self.environment = environment
+		self.path = path
+	}
 }
 public protocol HttpTask{
 	associatedtype T:Codable
