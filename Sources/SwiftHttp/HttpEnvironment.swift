@@ -5,6 +5,10 @@ public struct HttpEnvironment{
 	var pathPrefix: String
 	var headers: [(name: String, value: String)] = []
 	var queries: [(name: String, value: String)] = []
+	public init(hostName: String, pathPrefix: String){
+		self.hostName = hostName
+		self.pathPrefix = pathPrefix
+	}
 	//func urlRequest(from task: any HttpTask) -> URLRequest
 }
 
