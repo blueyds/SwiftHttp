@@ -13,7 +13,7 @@ public struct HTTPTask{
 public protocol HttpTask{
 	associatedtype T:Codable
 	var task: HTTPTask { get set }
-	func run() -> T 	
+	func getData() async -> T 	
 }
 
 extension HttpTask{
@@ -32,8 +32,8 @@ extension HttpTask{
             fatalError("HTtpTask threw")
         }
     }
-    public func run()-> T{
-    	let data:Data = run()
+    public func getData() async -> T{
+    	let data:Data? = run()
     	return decode(from: data)
     }
 	 

@@ -20,7 +20,7 @@ extension HttpEnvironment {
 		urlParts.host = hostName
 		urlParts.path = pathPrefix + t.task.path	
 		urlParts.addQueries(queries)
-		urlParts.addQueries(task.queries)
+		urlParts.addQueries(t.task.queries)
 		
 		if let url = urlParts.url{
 			var request = URLRequest(url: url)
