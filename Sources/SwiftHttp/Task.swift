@@ -33,7 +33,7 @@ extension HttpTask{
         }
     }
     public func getData() async -> T?{
-    	await let data:Data? = run()
+    	let data:Data? = await run()
     	if data == nil { return nil }
     	return decode(from: data!)
     }
