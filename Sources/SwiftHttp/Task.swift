@@ -23,7 +23,7 @@ public struct HTTPTask{
 public protocol HttpTask{
 	associatedtype T:Codable
 	var task: HTTPTask { get set }
-	func getData() async -> T 	
+	func getData() async -> T? 	
 }
 
 extension HttpTask{
