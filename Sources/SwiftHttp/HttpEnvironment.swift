@@ -1,7 +1,5 @@
 import Foundation
 
-
-
 public protocol HttpEnvironment{
 	var hostName: String { get }
 	var pathPrefix: String { get }
@@ -11,20 +9,25 @@ public protocol HttpEnvironment{
 }
 
 extension HttpEnvironment {
-	public func urlRequest(from task: any HttpTask) -> URLRequest{
+	public typealias Headers = [(name: String, value: String)]
+    public typealias Queries = [(name: String, value: String)]
+    public var headers: Headers { [] }
+    public var queries: Queries { [] }
+    
+	public func urlRequest(from t: any HttpTask) -> URLRequest{
 		var urlParts = URLComponents()
 		urlParts.scheme = "https"
 		urlParts.host = hostName
-		urlParts.path = pathPrefix + task.path	
+		urlParts.path = pathPrefix + t.task.path	
 		urlParts.addQueries(queries)
 		urlParts.addQueries(task.queries)
 		
 		if let url = urlParts.url{
 			var request = URLRequest(url: url)
-			request.httpMethod = task.method.rawValue
+			request.httpMethod = t.task.method.rawValue
 			request.addHeaders(headers)
-			request.addHeaders(task.headers)
-			request.httpBody = task.body
+			request.addHeaders(t.task.headers)
+			request.httpBody = t.task.body
 			print(request.url!.absoluteString)
 			print(request.allHTTPHeaderFields)
 			return request    

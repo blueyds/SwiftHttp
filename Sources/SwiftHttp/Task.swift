@@ -1,53 +1,63 @@
 import Foundation
 
+public struct HTTPTask{
+	var environment: HttpEnvironment
+	var method: HttpMethod = .get
+	var path: String
+	var headers: [(name: String, value: String)] = []
+	var queries: [(name: String, value: String)] = []
+	var body: Data? = nil
+	
+
+}
 public protocol HttpTask{
 	associatedtype T:Codable
-	var defaults: HttpEnvironment { get }
-	var method: HttpMethod { get set }
-	var headers: [(name: String, value: String)] { get set }
-	var path: String { get }
-	var queries: [(name: String, value: String)] { get set }
-	var body: Data? { get set }
+	var task: HTTPTask { get set }
+	func run() -> T 	
 }
 
 extension HttpTask{
-    public func run() async -> T {
+    public func run() async -> Data? {
         let session = URLSession.shared
-        let request = defaults.urlRequest(from: self)
+        let request = task.environment.urlRequest(from: self)
         do {
             let result = try await session.download(for: request)
             print("got download \(result.0)")
             // let text = try String(contentsOf: result.0)
             // print(text)
             let data = try Data(contentsOf: result.0)
-            return decode(from: data)
+            return data
         }
         catch {
             fatalError("HTtpTask threw")
         }
+    }
+    public func run()-> T{
+    	let data:Data = run()
+    	return decode(from: data)
     }
 	 
 	 /// helper functions
 	 public mutating func addQuery(name: String, valueAsInt: Int) {
 		 let v = String(valueAsInt)
 		 let query = (name: name, value: v)
-		 queries.append(query)
+		 task.queries.append(query)
 	 }
 	 public mutating func addQuery(name: String, value: String) {
 		 let query = (name: name, value: value)
-		 queries.append(query)
+		 task.queries.append(query)
 	 }
 	 public mutating func addHeader(name: String, value: String){
 		 let header = (name: name, value: value)
-		 headers.append(header)
+		 task.headers.append(header)
 	 }
 	 
 	 public mutating func request(json: Codable){
 	 	let encoder = JSONEncoder()
 	 	if let data = try? encoder.encode(json){
 	 		addHeader(name: "Content-Type", value: "application/json")
-	 		method = .post
-	 		body = data
+	 		task.method = .post
+	 		task.body = data
 	 	}
 	 }
 }
