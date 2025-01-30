@@ -32,9 +32,10 @@ extension HttpTask{
             fatalError("HTtpTask threw")
         }
     }
-    public func getData() async -> T{
-    	let data:Data? = run()
-    	return decode(from: data)
+    public func getData() async -> T?{
+    	await let data:Data? = run()
+    	if data == nil { return nil }
+    	return decode(from: data!)
     }
 	 
 	 /// helper functions

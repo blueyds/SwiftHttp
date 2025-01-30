@@ -1,19 +1,14 @@
 import Foundation
 
-public protocol HttpEnvironment{
-	var hostName: String { get }
-	var pathPrefix: String { get }
-	var headers: [(name: String, value: String)] { get }
-	var queries: [(name: String, value: String)] { get }
+public struct HttpEnvironment{
+	var hostName: String
+	var pathPrefix: String
+	var headers: [(name: String, value: String)] = []
+	var queries: [(name: String, value: String)] = []
 	//func urlRequest(from task: any HttpTask) -> URLRequest
 }
 
-extension HttpEnvironment {
-	public typealias Headers = [(name: String, value: String)]
-    public typealias Queries = [(name: String, value: String)]
-    public var headers: Headers { [] }
-    public var queries: Queries { [] }
-    
+extension HttpEnvironment {    
 	public func urlRequest(from t: any HttpTask) -> URLRequest{
 		var urlParts = URLComponents()
 		urlParts.scheme = "https"
@@ -28,8 +23,8 @@ extension HttpEnvironment {
 			request.addHeaders(headers)
 			request.addHeaders(t.task.headers)
 			request.httpBody = t.task.body
-			print(request.url!.absoluteString)
-			print(request.allHTTPHeaderFields)
+			//print(request.url!.absoluteString)
+			//print(request.allHTTPHeaderFields)
 			return request    
 		} else {
 				fatalError("urlParts did not unwrap \(urlParts)")
